@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 		<link type="text/css" rel="stylesheet" href="css/960.css" />
 		<link type="text/css" rel="stylesheet" href="css/normalize.css" />
-		<link type="text/css" rel="stylesheet" href="css/prettify/min/prettify.css" />
+		<link type="text/css" rel="stylesheet" href="css/prettify.css" />
 		<link type="text/css" rel="stylesheet" href="css/style.css" />
     </head>
     <body>
@@ -28,9 +28,8 @@
 		</div>
 		
 		<script type="text/javascript" src="js/gmap.js"></script> 
-		<script type="text/javascript" src="http://jquery-ui-map.googlecode.com/svn/trunk/demos/js/jquery-1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="http://jquery-ui-map.googlecode.com/svn/trunk/demos/js/demo.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.map.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.map.services.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.map.extensions.js"></script>
@@ -39,7 +38,6 @@
 			$('#location').click(function(event) { 
 				$('#map_canvas').fadeIn("slow");
 				$(function() { 
-				demo.add(function() {
 					$('#map_canvas').gmap({'center': '30.29128,-97.73858','zoom':4,'disableDefaultUI':true, 'callback': function(map) {
 						var self = this;
 						self.set('openDialog', function(marker) {
@@ -70,7 +68,6 @@
 						});
 					}});
 				}).load();
-			});
 			});
             
         </script>
