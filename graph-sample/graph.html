@@ -139,8 +139,8 @@ a:active {color:#000000;}
   <script type="text/javascript" src="js/jquery-ui-map.js"></script>
   <script type="text/javascript" src="js/jquery-ui-map-services.js"></script>
   <script type="text/javascript" src="js/jquery-ui-map-extensions.js"></script>
-
   <script>
+  var geocoder = new google.maps.Geocoder();
   function showValue(newValue) {
     document.getElementById("range").innerHTML=newValue;
   }
@@ -242,10 +242,11 @@ a:active {color:#000000;}
           $('#map_canvas').fadeOut("slow"); 
           return; 
         }
+        
         $('#extend-map').html("Map <<");
         $('#map_canvas').fadeIn("slow");
         $(function() { 
-          $('#map_canvas').gmap({'center': '30.29128,-97.73858','zoom':4,'disableDefaultUI':true, 'callback': function(map) {
+          $('#map_canvas').gmap({'center': '30.29128,-97.73858','zoom':10,'disableDefaultUI':true, 'callback': function(map) {
             var self = this;
             self.set('openDialog', function(marker) {
               $('#dialog'+marker.__gm_id).dialog({'modal':true, 'title': 'Edit and save point', 'buttons': { 
@@ -275,9 +276,18 @@ a:active {color:#000000;}
             });
           }});
         }).load();
-      });
+        var inputAddress=$('#address').val();
+        var location;        
+        geocoder.geocode({
+          "address": inputAddress
+        }, function(results) {
+           $('#map_canvas').gmap('get','map').setOptions({'center':results[0].geometry.location});
+           $('#map_canvas').gmap('addMarker', { 'position': results[0].geometry.location});
+        });
+
+    });
             
-        </script>
+    </script>
     
 
 </body>
