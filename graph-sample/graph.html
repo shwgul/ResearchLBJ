@@ -39,39 +39,94 @@ label {
   padding-left: 15px;
   text-indent: -15px;
 }
-
 .messagepop p, .messagepop.div {
   border-bottom: 1px solid #EFEFEF;
   margin-top: 50px;
   margin-left: 50px;
   padding-bottom: 8px;
 }
+.map-div{ 
+  margin-top:150px;
+  margin-left:360px;
+  width:500px;
+  height:300px;
+  z-index:10;
+  position:absolute;
+  border-style: solid;
+  border-width:10px;
+  border-color: #222;
+};
+a:link {color:#000000;}      /* unvisited link */
+a:visited {color:#000000;}  /* visited link */
+a:hover {color:#000000;}  /* mouse over link */
+a:active {color:#000000;}
 </style>
 <link rel="stylesheet" type="text/css" href="bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="bootstrap-theme.css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+<script src="js/jquery.js">
 </script>
 </head>
-
 <body>
- <br>
- <div style="position:absolute;left:10px;width:300px">
-  <div class="panel panel-default">
-  <h4 class=""><i class="icon-plus-sign-alt"></i>Add member</h4>
-  <hr class="hr-dark">
-  <form role="form">
-    <div class="form-group">
-        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Name" tabindex="3">
+<br>
+ <div id="map_canvas" class="map-div"></div>
+ <div id="form-bar" style="position:absolute;left:10px;width:300px">
+   <div class="row centered-form head-mod">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Add Planet<small> (Others) </small><a id="expand-link" href="">+</a></h3>
+            </div>
+            <div class="panel-body" id="form-body">
+              <form role="form" action="graph.html">
+                        <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                            <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                  <input type="text" name="profession" id="profession" class="form-control input-sm" placeholder="Profession">
+                            </div>
+
+                          <div class="form-group" id="address-group">
+                                <label class="msg" for="Address">Address:</label>
+                                <h6><a href="" id="extend-map">Map >> </a></h6>
+                                <textarea name="address" id="address" class="form-control" placeholder="Address"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label class="msg" for="trust">Trust Level<br/><small>(Trust in this person's advice) : </small></label>
+                            <span id="range">3</span><input id="trust" type="range" default="3" min="0" max="5" onchange="showValue(this.value)"/>
+                          </div>
+                          <div class="form-group">
+                           <label class="msg" for="cognitive">Cognitive Capital</label>
+                            <input type="text" name="cognitive" id="cognitive" class="form-control input-sm"  placeholder="Frequencey(daily/monthly/yearly)"/>
+                          </div>
+                          <div class="form-group">
+                            <label class="msg" for="conversation">What do you talk about:</label>
+                            <br>
+                            <div class="form-group">
+                            <input type="checkbox"  id="conv-solar" name="conv-solar"> Solar</input>
+                            <br/>
+                            <input type="checkbox" id="conv-wind" name="conv-wind"> Wind</input>
+                            <br/><input type="checkbox" id="conv-gas" name="conv-gas"> Natural Gas</input>
+                            <br/><input type="checkbox" id="conv-ev" name="conv-ev"> EV</input>
+                            <br/><input type="checkbox" id="conv-fuel" name="conv-fuelr"> Fuel Economy</input>
+                            <br/><input type="checkbox" id="conv-oil" name="conv-oil"> Oil</input>
+                            <br/><input type="checkbox" id="conv-elec" name="conv-elec"> Electricity</input>
+                            <br/><input type="checkbox" id="conv-energy" name="conv-energy"> Energy Efficiency</input>
+                            </div>
+                          </div>
+                          <input type="submit" id="go" value="Add" class="btn btn-info btn-block">
+              
+              </form>
+        </div>
       </div>
-      <div class="form-group">
-        <input type="text" name="level" id="level" class="form-control input-lg" placeholder="Energy Level" tabindex="4">
-      </div>
-    <div class="form-group">
-    <span class="button-checkbox">
-        <button type="button" id="go" class="btn" data-color="info" tabindex="7">Go</button>
-    </span>
-    </div>
- </form>
  </div>
  </div>
  <div class="messagepop pop">
@@ -79,9 +134,28 @@ label {
  <div style="position:absolute;right:50px;top:10px;height:80%;width:80%;">
   <div id="container" style="position:absolute;right:200px;left:50px;"></div>
   </div>
-  
   <script src="./sigma.min.js"></script>
+  <script type="text/javascript" src="js/gmap.js"></script> 
+  <script type="text/javascript" src="js/jquery-ui-map.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-map-services.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-map-extensions.js"></script>
+
   <script>
+  function showValue(newValue) {
+    document.getElementById("range").innerHTML=newValue;
+  }
+  var i = 0;
+  $('#form-body').hide();
+  $('#expand-link').click(function() { 
+    if (i%2 ==0) {
+      $('#form-body').fadeIn('slow');
+      $('#expand-link').html("-");
+    } else {
+      $('#form-body').fadeOut('slow');
+      $('#expand-link').html("+");
+    }
+    i++;
+  });
   $(document).ready(function () {
     var s = new sigma('container');
     var nameMap = {};
@@ -157,5 +231,54 @@ label {
   };
   });
 </script>
+<script type="text/javascript">
+      $('#map_canvas').hide();
+      var mapOpen = 0;
+      $('#extend-map').click(function(event) { 
+        mapOpen++;
+        if ( mapOpen %2 == 0) { 
+          $('#extend-map').html("Map >>");  
+          $('#map_canvas').gmap('destroy');
+          $('#map_canvas').fadeOut("slow"); 
+          return; 
+        }
+        $('#extend-map').html("Map <<");
+        $('#map_canvas').fadeIn("slow");
+        $(function() { 
+          $('#map_canvas').gmap({'center': '30.29128,-97.73858','zoom':4,'disableDefaultUI':true, 'callback': function(map) {
+            var self = this;
+            self.set('openDialog', function(marker) {
+              $('#dialog'+marker.__gm_id).dialog({'modal':true, 'title': 'Edit and save point', 'buttons': { 
+                'Remove': function() { $(this).dialog('close'); marker.setMap(null); return false; },
+                'Save': function() { $(this).dialog('close'); return false; }
+              }});
+            });
+            self.set('findLocation', function(location, marker) {
+              self.search({'location': location}, function(results, status) {
+                if ( status === 'OK' ) {
+                  $.each(results[0].address_components, function(i,v) {
+                    if ( v.types[0] == "administrative_area_level_1" || v.types[0] == "administrative_area_level_2" ) {
+                      $('#location').val(results[0].formatted_address);
+                    }
+                  });
+                  
+                }
+              });
+            });
+            $(map).click( function(event) {
+              $('#map_canvas').gmap('clear', 'markers');
+              self.addMarker({'position': event.latLng, 'draggable': true, 'bounds': false}, function(map, marker) {
+                self.get('findLocation')(marker.getPosition(), marker);
+              }).dragend( function(event) {
+                self.get('findLocation')(event.latLng, this);
+              })
+            });
+          }});
+        }).load();
+      });
+            
+        </script>
+    
+
 </body>
 </html>
