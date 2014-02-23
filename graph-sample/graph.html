@@ -156,8 +156,35 @@ a:active {color:#000000;}
     }
     i++;
   });
+  
   $(document).ready(function () {
-    var s = new sigma('container');
+    //var s = new sigma('container');
+    var s = new sigma({
+  renderers: [
+    {
+      container: document.getElementById('container'),
+      type: 'canvas' // sigma.renderers.canvas works as well
+    }
+  ]
+});
+sigma.canvas.nodes.square = function(node, context, settings) {
+      var prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
+      context.fillStyle = node.color || settings('defaultNodeColor');
+      var centerX = node[prefix + 'x'] - 30 * size;
+      var centerY = node[prefix + 'y'];
+      var radius = size * 10;
+      context.lineWidth = 1;
+      context.save();
+      context.scale(2,1);
+      context.beginPath();
+      //context.bezierCurveTo(centerX,centerY, centerX + radius,centerY,centerX+radius, centerY+radius);
+      //context.bezierCurveTo(centerX+radius, centerY+radius, centerX, centerY + radius, centerX , centerY);
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
     var nameMap = {};
     var levelMap = {};
     s.graph.addNode({
@@ -170,6 +197,18 @@ a:active {color:#000000;}
       size: 1,
       color: '#f00'
     });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring1',
+      label: '',
+      type:"square",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      size: 1,
+      color: '#f00'
+    });
+    
     nameMap['me'] = "Shweta";
     levelMap['me'] = 0;
     s.refresh();
