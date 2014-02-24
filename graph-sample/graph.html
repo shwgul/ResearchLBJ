@@ -103,14 +103,14 @@ a:active {color:#000000;}
                             <span id="range">3</span><input id="trust" type="range" default="3" min="0" max="5" onchange="showValue(this.value)"/>
                           </div>
                           <div class="form-group">
-                           <label class="msg" for="cognitive">Cognitive Capital</label>
+                           <label class="msg" for="cognitive">On an average, how often do you communicate?</label>
                             <input type="text" name="cognitive" id="cognitive" class="form-control input-sm"  placeholder="Frequencey(daily/monthly/yearly)"/>
                           </div>
                           <div class="form-group">
-                            <label class="msg" for="conversation">What do you talk about:</label>
+                            <label class="msg" for="conversation" class="form-control">What do you talk about:</label>
                             <br>
-                            <input type="checkbox" name="conversation" value="solar">Solar<br/>
-                            <input type="checkbox" name="conversation" value="wind"> Wind
+                            <input type="checkbox">Solar <br>
+                            <input type="checkbox"> Wind
                             <br/><input type="checkbox" value="gas" name="coversation"> Natural Gas
                             <br/><input type="checkbox" name="conversation" value="ev"> EV
                             <br/><input type="checkbox" name="conversation" value="fuel"> Fuel Economy
@@ -162,7 +162,7 @@ a:active {color:#000000;}
       type: 'canvas' // sigma.renderers.canvas works as well
     }]
   });
-sigma.canvas.nodes.square = function(node, context, settings) {
+  sigma.canvas.nodes.square = function(node, context, settings) {
       var prefix = settings('prefix') || '',
       size = node[prefix + 'size'];
       context.fillStyle = node.color || settings('defaultNodeColor');
@@ -185,6 +185,17 @@ sigma.canvas.nodes.square = function(node, context, settings) {
       // Main attributes:
       id: 'me',
       label: 'Shweta',
+      // Display attributes:
+      x: 0,
+      y: 0,
+      size: 1,
+      color: '#f00'
+    });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring1',
+      label: '',
+      type:"square",
       // Display attributes:
       x: 0,
       y: 0,
@@ -230,6 +241,17 @@ sigma.canvas.nodes.square = function(node, context, settings) {
         nodes[i].y = levels[i]/10 * Math.sin(Math.PI * 2 * count[levels[i]] / total[levels[i]]);
         count[levels[i]]+=1;
     }
+     s.graph.addNode({
+      // Main attributes:
+      id: 'ring1',
+      label: '',
+      type:"square",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      size: 1,
+      color: '#f00'
+    });
    s.refresh();
   });
   var toggleBit = 1;
