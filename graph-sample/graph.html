@@ -206,9 +206,9 @@ a:active {color:#000000;}
     levelMap['me'] = 0;
     s.refresh();
     var theta = 0;
-    var cs = ['#f00','#0f0','#00f','#ff0','#0ff'];
+    var cs = ['#f00','#0f0','#00f','#ff0','#0ff','#f0f'];
     var levels =[-1];
-    var total=[1,1,1,1,1];
+    var total=[1,1,1,1,1,1];
     $("#go").on("click",function(){
      var name = $("#first_name").val();
      if(name in nameMap) { 
@@ -235,13 +235,13 @@ a:active {color:#000000;}
     theta += 90;
     theta *= -1;
     var i,nodes = s.graph.nodes(),len = nodes.length;
-    var count=[0,0,0,0,0]
+    var count=[0,0,0,0,0,0]
     for (i = 1; i < len; i++) {
         nodes[i].x = levels[i]/10 * Math.cos(Math.PI * 2 * count[levels[i]] / total[levels[i]]);
         nodes[i].y = levels[i]/10 * Math.sin(Math.PI * 2 * count[levels[i]] / total[levels[i]]);
         count[levels[i]]+=1;
     }
-     s.graph.addNode({
+    s.graph.addNode({
       // Main attributes:
       id: 'ring1',
       label: '',
