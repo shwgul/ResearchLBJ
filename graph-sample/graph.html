@@ -73,7 +73,7 @@ a:active {color:#000000;}
    <div class="row centered-form head-mod">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Add Planet<small> (Others) </small><a id="expand-link" href="">+</a></h3>
+              <h3 class="panel-title">Add Planet<small> (Others) </small><div id="expand-link" href="">+</div></h3>
             </div>
             <div class="panel-body" id="form-body">
               <form role="form" action="graph.html">
@@ -261,7 +261,7 @@ a:active {color:#000000;}
             }); 
             toggleBit = 0;      
   });
-  $("body").on('click', function() {
+  $(".pop").on('click', function() {
         if (toggleBit == 1) { 
           return false;
         }
