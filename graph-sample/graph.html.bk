@@ -140,6 +140,68 @@ a:active {color:#000000;}
   function showValue(newValue) {
     document.getElementById("range").innerHTML=newValue;
   }
+  function makeRings(s) {
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring1',
+      label: '',
+      type:"ring1",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      level:1,
+      size: 1,
+      color: '#f00'
+    });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring2',
+      label: '',
+      type:"ring2",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      level:1,
+      size: 1,
+      color: '#f00'
+    });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring3',
+      label: '',
+      type:"ring3",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      level:1,
+      size: 1,
+      color: '#f00'
+    });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring4',
+      label: '',
+      type:"ring4",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      level:1,
+      size: 1,
+      color: '#f00'
+    });
+    s.graph.addNode({
+      // Main attributes:
+      id: 'ring5',
+      label: '',
+      type:"ring5",
+      // Display attributes:
+      x: 0,
+      y: 0,
+      level:1,
+      size: 1,
+      color: '#f00'
+    });
+    }
   var i = 0;
   $('#form-body').hide();
   $('#expand-link').click(function() { 
@@ -152,22 +214,21 @@ a:active {color:#000000;}
     }
     i++;
   });
-  
   $(document).ready(function () {
     //var s = new sigma('container');
     var s = new sigma({
     renderers: [{
       container: document.getElementById('container'),
-      type: 'canvas' // sigma.renderers.canvas works as well
+      type: 'canvas'
     }]
   });
-  sigma.canvas.nodes.square = function(node, context, settings) {
+  sigma.canvas.nodes.ring1 = function(node, context, settings) {
       var prefix = settings('prefix') || '',
       size = node[prefix + 'size'];
       context.fillStyle = node.color || settings('defaultNodeColor');
       var centerX = node[prefix + 'x'];
       var centerY = node[prefix + 'y'];
-      var radius = size * 10;
+      var radius = size * 7;
       context.lineWidth = 1;
       context.save();
       context.beginPath();
@@ -178,6 +239,78 @@ a:active {color:#000000;}
       context.closePath();
       context.restore();
     };
+    sigma.canvas.nodes.ring2 = function(node, context, settings) {
+      var prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
+      context.fillStyle = node.color || settings('defaultNodeColor');
+      var centerX = node[prefix + 'x'];
+      var centerY = node[prefix + 'y'];
+      var radius = size * 14;
+      context.lineWidth = 1;
+      context.save();
+      context.beginPath();
+      //context.bezierCurveTo(centerX,centerY, centerX + radius,centerY,centerX+radius, centerY+radius);
+      //context.bezierCurveTo(centerX+radius, centerY+radius, centerX, centerY + radius, centerX , centerY);
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
+  
+  sigma.canvas.nodes.ring3 = function(node, context, settings) {
+      var prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
+      context.fillStyle = node.color || settings('defaultNodeColor');
+      var centerX = node[prefix + 'x'];
+      var centerY = node[prefix + 'y'];
+      var radius = size * 7 * 3;
+      context.lineWidth = 1;
+      context.save();
+      context.beginPath();
+      //context.bezierCurveTo(centerX,centerY, centerX + radius,centerY,centerX+radius, centerY+radius);
+      //context.bezierCurveTo(centerX+radius, centerY+radius, centerX, centerY + radius, centerX , centerY);
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
+  
+  sigma.canvas.nodes.ring4 = function(node, context, settings) {
+      var prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
+      context.fillStyle = node.color || settings('defaultNodeColor');
+      var centerX = node[prefix + 'x'];
+      var centerY = node[prefix + 'y'];
+      var radius = size * 7 * 4;
+      context.lineWidth = 1;
+      context.save();
+      context.beginPath();
+      //context.bezierCurveTo(centerX,centerY, centerX + radius,centerY,centerX+radius, centerY+radius);
+      //context.bezierCurveTo(centerX+radius, centerY+radius, centerX, centerY + radius, centerX , centerY);
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
+  
+  sigma.canvas.nodes.ring5 = function(node, context, settings) {
+      var prefix = settings('prefix') || '',
+      size = node[prefix + 'size'];
+      context.fillStyle = node.color || settings('defaultNodeColor');
+      var centerX = node[prefix + 'x'];
+      var centerY = node[prefix + 'y'];
+      var radius = size * 7 * 5;
+      context.lineWidth = 1;
+      context.save();
+      context.beginPath();
+      //context.bezierCurveTo(centerX,centerY, centerX + radius,centerY,centerX+radius, centerY+radius);
+      //context.bezierCurveTo(centerX+radius, centerY+radius, centerX, centerY + radius, centerX , centerY);
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
+  
     var nameMap = {};
     var levelMap = {};
     s.graph.addNode({
@@ -190,30 +323,15 @@ a:active {color:#000000;}
       size: 1,
       color: '#f00'
     });
-    s.graph.addNode({
-      // Main attributes:
-      id: 'ring1',
-      label: '',
-      type:"square",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      size: 1,
-      color: '#f00'
-    });
-
-    s.graph.addNode({
-      // Main attributes:
-      id: 'ring2',
-      label: '',
-      type:"square",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      size: 2,
-      color: '#f00'
-    });
-
+    
+    function dropNodes() { 
+      s.graph.dropNode('ring1');
+      s.graph.dropNode('ring2');
+      s.graph.dropNode('ring3');
+      s.graph.dropNode('ring4');
+      s.graph.dropNode('ring5');
+    }
+    makeRings(s);
     nameMap['me'] = "Shweta";
     levelMap['me'] = 0;
     s.refresh();
@@ -232,8 +350,7 @@ a:active {color:#000000;}
      levelMap[name] = level;
      levels.push(level);
      var c = '#f00';
-     s.graph.dropNode('ring1');
-     s.graph.dropNode('ring2');
+     dropNodes();
      s.graph.addNode({
       // Main attributes:
       id: name,
@@ -244,6 +361,7 @@ a:active {color:#000000;}
       size: 1,
       color: cs[level]
     });
+    
     total[level]+=1;
     theta += 90;
     theta *= -1;
@@ -254,30 +372,7 @@ a:active {color:#000000;}
         nodes[i].y = levels[i]/10 * Math.sin(Math.PI * 2 * count[levels[i]] / total[levels[i]]);
         count[levels[i]]+=1;
     }
-     s.graph.addNode({
-      // Main attributes:
-      id: 'ring1',
-      label: '',
-      type:"square",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      size: 1,
-      color: '#f00'
-    });
-
-    s.graph.addNode({
-      // Main attributes:
-      id: 'ring2',
-      label: '',
-      type:"square",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      size: 2,
-      color: '#f00'
-    }); 
-
+    makeRings(s);
    s.refresh();
   });
   var toggleBit = 1;
