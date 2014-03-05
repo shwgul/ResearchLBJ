@@ -178,30 +178,6 @@ a:active {color:#000000;}
       size: 1,
       color: '#f00'
     });
-    s.graph.addNode({
-      // Main attributes:
-      id: 'ring4',
-      label: '',
-      type:"ring4",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      level:1,
-      size: 1,
-      color: '#f00'
-    });
-    s.graph.addNode({
-      // Main attributes:
-      id: 'ring5',
-      label: '',
-      type:"ring5",
-      // Display attributes:
-      x: 0,
-      y: 0,
-      level:1,
-      size: 1,
-      color: '#f00'
-    });
   }
   var i = 0;
   $('#form-body').hide();
@@ -217,12 +193,15 @@ a:active {color:#000000;}
   });
   $(document).ready(function () {
     //var s = new sigma('container');
+    sigma.settings.mouseEnabled = false; 
+    sigma.settings.doubleClickEnabled = false; 
     var s = new sigma({
     renderers: [{
       container: document.getElementById('container'),
       type: 'canvas'
     }]
-  });
+    });
+
   sigma.canvas.nodes.ring1 = function(node, context, settings) {
       var prefix = settings('prefix') || '',
       size = node[prefix + 'size'];
@@ -327,8 +306,6 @@ a:active {color:#000000;}
       s.graph.dropNode('ring1');
       s.graph.dropNode('ring2');
       s.graph.dropNode('ring3');
-      s.graph.dropNode('ring4');
-      s.graph.dropNode('ring5');
     }
     makeRings(s);
     nameMap['me'] = "Shweta";
